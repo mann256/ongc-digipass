@@ -1,0 +1,74 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Cancel Gate Pass
+{% endblock %}
+
+{% block content %}
+
+<div class="card shadow">
+
+    <div class="card-body">
+
+        <h3 class="text-danger">
+
+            Cancel Gate Pass
+
+        </h3>
+
+        <hr>
+
+        <p>
+
+            <b>Gate Pass :</b>
+
+            {{ gate_pass.gp_number }}
+
+        </p>
+
+        <form method="POST">
+
+            <label class="form-label">
+
+                Reason for Cancellation
+
+            </label>
+
+            <textarea
+
+                class="form-control"
+
+                name="cancel_reason"
+
+                rows="4"
+
+                required
+
+            ></textarea>
+
+            <br>
+
+            <button
+                class="btn btn-danger"
+            >
+
+                Cancel Gate Pass
+
+            </button>
+
+            <a
+                href="/view-gatepass/{{ gate_pass.id }}"
+                class="btn btn-secondary"
+            >
+
+                Back
+
+            </a>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

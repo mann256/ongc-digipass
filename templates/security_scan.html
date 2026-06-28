@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <title>
+
+        Security Verification
+
+    </title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+</head>
+
+<body class="bg-light">
+
+<div class="container mt-4">
+
+<div class="card shadow">
+
+<div class="card-body">
+
+<div class="text-center">
+
+<img
+src="{{ url_for('static', filename='images/ongc_logo.png') }}"
+width="90"
+>
+
+<h3>
+
+ONGC MATERIAL E-PASS
+
+</h3>
+
+<hr>
+
+</div>
+
+<div class="row">
+
+<div class="col-md-6">
+
+<p>
+
+<b>Gate Pass No :</b>
+
+{{ gate_pass.gp_number }}
+
+</p>
+
+<p>
+
+<b>Status :</b>
+
+{{ gate_pass.status }}
+
+</p>
+
+<p>
+
+<b>Receiver :</b>
+
+{{ gate_pass.receiver_name }}
+
+</p>
+
+<p>
+
+<b>Receiver CPF :</b>
+
+{{ gate_pass.receiver_cpf }}
+
+</p>
+
+</div>
+
+<div class="col-md-6">
+
+<p>
+
+<b>Vehicle :</b>
+
+{{ gate_pass.vehicle_number }}
+
+</p>
+
+<p>
+
+<b>Vehicle Type :</b>
+
+{{ gate_pass.vehicle_type }}
+
+</p>
+
+<p>
+
+<b>Dispatched From :</b>
+
+{{ gate_pass.dispatched_from }}
+
+</p>
+
+<p>
+
+<b>Dispatched To :</b>
+
+{{ gate_pass.dispatched_to }}
+
+</p>
+
+</div>
+
+</div>
+
+<hr>
+
+<h5>
+
+Material Details
+
+</h5>
+
+<table class="table table-bordered">
+
+<thead>
+
+<tr>
+
+<th>Item</th>
+
+<th>Description</th>
+
+<th>Asset</th>
+
+<th>Qty</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for item in items %}
+
+<tr>
+
+<td>{{ item.item_no }}</td>
+
+<td>{{ item.material_description }}</td>
+
+<td>{{ item.asset_serial_no }}</td>
+
+<td>{{ item.qty }}</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+<hr>
+
+<h5>
+
+Approval Details
+
+</h5>
+
+<p>
+
+<b>Created By :</b>
+
+{{ gate_pass.created_by_name }}
+
+</p>
+
+<p>
+
+<b>Approved By :</b>
+
+{{ gate_pass.approved_by }}
+
+</p>
+
+<hr>
+
+<form method="POST">
+
+<h5 class="text-center">
+
+{% if gate_pass.status=="APPROVED" %}
+
+Security Check-Out
+
+{% elif gate_pass.status=="IN_TRANSIT" %}
+
+Security Check-In
+
+{% elif gate_pass.status=="COMPLETED" %}
+
+Gate Pass Completed
+
+{% elif gate_pass.status=="CANCELLED" %}
+
+Gate Pass Cancelled
+
+{% endif %}
+
+</h5>
+
+<div class="mb-3">
+
+<label>
+
+CPF
+
+</label>
+
+<input
+type="text"
+name="cpf"
+class="form-control"
+required
+>
+
+</div>
+
+<div class="mb-3">
+
+<label>
+
+Password
+
+</label>
+
+<input
+type="password"
+name="password"
+class="form-control"
+required
+>
+
+</div>
+
+<div class="mb-3">
+
+<label>
+
+Guard Name
+
+</label>
+
+<input
+    type="text"
+    name="guard_name"
+    class="form-control"
+    minlength="3"
+    maxlength="100"
+    required
+>
+
+</div>
+
+<div class="mb-3">
+
+<label>
+
+Remarks
+
+</label>
+
+<textarea
+name="remarks"
+class="form-control"
+rows="3"
+></textarea>
+
+</div>
+
+<button
+type="submit"
+class="btn btn-success"
+name="action"
+value="accept"
+>
+
+Accept
+
+</button>
+
+<button
+type="submit"
+class="btn btn-danger"
+name="action"
+value="decline"
+>
+
+Decline
+
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,1048 @@
+{% extends "layout.html" %}
+
+{% block title %}
+
+{% if edit %}
+Edit Gate Pass
+{% else %}
+Create Gate Pass
+{% endif %}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="card shadow">
+
+    <div class="card-header">
+
+        <h3 class="mb-0">
+
+        {% if edit %}
+
+        Edit Gate Pass
+
+        {% else %}
+
+        Create Gate Pass
+
+        {% endif %}
+
+        </h3>
+
+    </div>
+
+    <div class="card-body">
+
+        <form 
+            method="POST"
+            id="gatepassForm"
+        >
+
+        <div class="card mb-4">
+
+            <div class="card-header">
+
+                <h5 class="mb-0">
+
+                    <i class="bi bi-file-earmark-text-fill"></i>
+
+                    Gate Pass Information
+
+                </h5>
+
+            </div>
+
+            <div class="card-body">
+
+            <!-- Row 1 -->
+
+            <div class="row mb-3">
+
+                <div class="col-md-4">
+
+                    <label class="form-label">
+                        Date*
+                    </label>
+
+                    <input
+                    type="date"
+                    class="form-control"
+                    name="gatepass_date"
+                    id="gatepass_date"
+                    value="{{ gate_pass.gatepass_date if edit else '' }}"
+                    required
+                    >
+
+                </div>
+
+                <div class="col-md-4">
+
+                    <label class="form-label">
+                        Section
+                    </label>
+
+                    <select class="form-select">
+
+                        <option selected>
+                            Infocom Services
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <div class="col-md-4">
+
+                    <label class="form-label">
+                        Location*
+                    </label>
+
+                    <select
+                        class="form-select"
+                        name="location"
+                        required
+                    >   
+
+                        <option
+                            value="Infocom"
+                            {% if edit and gate_pass.location=="Infocom" %}
+                            selected
+                            {% endif %}
+                            >
+                            Infocom
+                        </option>
+
+                        <option
+                            value="Avani Bhavan"
+                            {% if edit and gate_pass.location=="Avani Bhavan" %}
+                            selected
+                            {% endif %}
+                            >
+                            Avani Bhavan
+                        </option>
+
+                        <option
+                            value="Sabarmati"
+                            {% if edit and gate_pass.location=="Sabarmati" %}
+                            selected
+                            {% endif %}
+                            >
+                            Sabarmati
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+            <div class="card mb-4">
+
+                <div class="card-header">
+
+                    <h5 class="mb-0">
+
+                        <i class="bi bi-truck"></i>
+
+                        Dispatch Details
+
+                    </h5>
+
+                </div>
+
+                <div class="card-body">
+
+            <!-- Row 2 -->
+
+            <div class="row mb-3">
+
+                <div class="col-md-6">
+
+                    <label class="form-label">
+                        Dispatched From*
+                    </label>
+
+                    <select
+                        class="form-select"
+                        name="dispatched_from"
+                        id="dispatched_from"
+                        required
+                    >
+
+                        <option
+                            value="Infocom-Infocom"
+                            {% if edit and gate_pass.dispatched_from=="Infocom-Infocom" %}
+                            selected
+                            {% endif %}
+                            >
+                            Infocom-Infocom
+                        </option>
+
+                        <option
+                            value="Infocom-Avani Bhavan"
+                            {% if edit and gate_pass.dispatched_from=="Infocom-Avani Bhavan" %}
+                            selected
+                            {% endif %}
+                            >
+                            Infocom-Avani Bhavan
+                        </option>
+
+                        <option
+                            value="Infocom-Sabarmati"
+                            {% if edit and gate_pass.dispatched_from=="Infocom-Sabarmati" %}
+                            selected
+                            {% endif %}
+                            >
+                            Infocom-Sabarmati
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <div class="col-md-6">
+
+                    <label class="form-label">
+                        Dispatched To*
+                    </label>
+
+                    <select
+                        class="form-select"
+                        name="dispatched_to"
+                        id="dispatched_to"
+                        required
+                    >
+
+                        <option
+                            value="Infocom"
+                            {% if edit and gate_pass.dispatched_to=="Infocom" %}
+                            selected
+                            {% endif %}
+                            >
+                            Infocom
+                        </option>
+
+                        <option
+                            value="Avani Bhavan"
+                            {% if edit and gate_pass.dispatched_to=="Avani Bhavan" %}
+                            selected
+                            {% endif %}
+                            >
+                            Avani Bhavan
+                        </option>
+
+                        <option
+                            value="Sabarmati"
+                            {% if edit and gate_pass.dispatched_to=="Sabarmati" %}
+                            selected
+                            {% endif %}
+                            >
+                            Sabarmati
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+            <!-- Row 3 -->
+
+            <div class="row mb-3">
+
+                <div class="col-md-4">
+
+                    <label class="form-label">
+                        Vehicle Type*
+                    </label>
+
+                    <select
+                        class="form-select"
+                        name="vehicle_type"
+                        required
+                    >
+
+                        <option
+                        value="Two Wheeler"
+                        {% if edit and gate_pass.vehicle_type=="Two Wheeler" %}
+                        selected
+                        {% endif %}
+                        >
+                        Two Wheeler
+                        </option>
+
+                        <option
+                            value= "Four Wheeler"
+                            {% if edit and gate_pass.vehicle_type=="Four Wheeler" %}
+                            selected
+                            {% endif %}
+                            >
+                            Four Wheeler
+                        </option>
+
+                        <option
+                            value="Heavy Vehicle"
+                            {% if edit and gate_pass.vehicle_type=="Heavy Vehicle" %}
+                            selected
+                            {% endif %}
+                            >
+                            Heavy Vehicle
+                        </option>
+
+                        <option
+                            value="By Hand"
+                            {% if edit and gate_pass.vehicle_type=="By Hand" %}
+                            selected
+                            {% endif %}
+                            >
+                            By Hand
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <div class="col-md-4">
+
+                    <label class="form-label">
+                        Vehicle Number
+                    </label>
+
+                    <input
+                        type="text"
+                        class="form-control"
+                        name="vehicle_number"
+                        value="{{ gate_pass.vehicle_number if edit else '' }}"
+                        
+                        style="text-transform: uppercase;"
+                    >
+
+                </div>
+
+                <div class="col-md-4">
+
+                    <label class="form-label">
+                        E-Way Bill No.
+                    </label>
+
+                    <input
+                        type="text"
+                        class="form-control"
+                        name="eway_bill_no"
+                        value="{{ gate_pass.eway_bill_no if edit else '' }}"
+                        
+                    >
+
+                </div>
+
+            </div>
+                </div>
+
+            </div>
+
+            <!-- Row 4 -->
+
+            <div class="mb-3">
+
+                <label class="form-label me-3">
+                    Returnable
+                </label>
+
+                <input
+                    type="radio"
+                    name="returnable"
+                    value="YES"
+                    {% if edit and gate_pass.returnable=="YES" %}
+                    checked
+                    {% endif %}
+                >
+
+                Yes
+
+                <input
+                    type="radio"
+                    name="returnable"
+                    value="NO"
+                    class="ms-3"
+                    {% if not edit or gate_pass.returnable=="NO" %}
+                    checked
+                    {% endif %}
+                >
+
+                No
+
+            </div>
+
+            <div class="card mb-4">
+
+                <div class="card-header">
+
+                    <h5 class="mb-0">
+
+                        <i class="bi bi-person-badge-fill"></i>
+
+                        Approving Authority
+
+                    </h5>
+
+                </div>
+
+                <div class="card-body">
+
+                  
+
+            <!-- Row 5 -->
+                
+
+            <div class="row mb-3">
+
+                <div class="col-md-6">
+
+                    <label class="form-label">
+                        Approving Authority Name*
+                    </label>
+
+                    <select
+                        class="form-select"
+                        name="approving_authority"
+                        required
+                    >
+
+                        <option value="">
+                            Select Approving Authority
+                        </option>
+
+                        <option
+                            value="Arun Gupta"
+                            {% if edit and gate_pass.approving_authority=="Arun Gupta" %}
+                            selected
+                            {% endif %}
+                            >
+                            Arun Gupta
+                        </option>
+
+                        <option
+                            value="Saurabh Gupta"
+                            {% if edit and gate_pass.approving_authority=="Saurabh Gupta" %}
+                            selected
+                            {% endif %}
+                            >
+                            Saurabh Gupta
+                        </option>
+
+                        <option
+                            value="Anip C Halpati"
+                            {% if edit and gate_pass.approving_authority=="Anip C Halpati" %}
+                            selected
+                            {% endif %}
+                            >
+                            Anip C Halpati
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <div class="col-md-6">
+
+                    <label class="form-label">
+                        Address To*
+                    </label>
+
+                    <input
+                        type="text"
+                        class="form-control"
+                        name="address_to"
+                        value="{{ gate_pass.address_to if edit else '' }}"
+                        required
+                    >
+
+                </div>
+
+            </div>
+
+    <div class="card mb-4">
+
+        <div class="card-header">
+
+            <h5 class="mb-0">
+
+                <i class="bi bi-person-fill"></i>
+
+                Receiver Details
+
+            </h5>
+
+        </div>
+
+        <div class="card-body">
+            
+
+            <!-- Row 6 -->
+
+            <div class="row mb-4">
+
+                <div class="col-md-6">
+
+                    <label class="form-label">
+                        Receiver CPF
+                    </label>
+
+                    <input
+                        type="number"
+                        class="form-control"
+                        name="receiver_cpf"
+                        value="{{ gate_pass.receiver_cpf if edit else '' }}"
+                        
+                    >
+
+                </div>
+
+                <div class="col-md-6">
+
+                    <label class="form-label">
+                        Receiving Name*
+                    </label>
+
+                    <input
+                        type="text"
+                        class="form-control"
+                        name="receiver_name"
+                        value="{{ gate_pass.receiver_name if edit else '' }}"
+                        required
+                    >
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+            <div class="card mb-4">
+
+                <div class="card-header">
+
+                    <h5 class="mb-0">
+
+                        <i class="bi bi-box-seam-fill"></i>
+
+                        Material Details
+
+                    </h5>
+
+                </div>
+
+                <div class="card-body">
+
+            <table class="table table-bordered">
+
+                <thead class="table-light">
+
+                    <tr>
+
+                        <th>
+                            Item No*
+                        </th>
+
+                        <th>
+                            Material Description*
+                        </th>
+
+                        <th>
+                            Asset / Serial No*
+                        </th>
+
+                        <th>
+                            Qty*
+                        </th>
+
+                        <th>
+                            Remarks*
+                        </th>
+
+                        <th>
+                            Action*
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="itemTable">
+
+                {% if edit %}
+
+                    {% for item in items %}
+
+                    <tr>
+
+                        <td>
+
+                            <input
+                                type="number"
+                                class="form-control"
+                                name="item_no[]"
+                                value="{{ item.item_no }}"
+                                readonly
+                            >
+
+                        </td>
+
+                        <td>
+
+                            <textarea
+                                class="form-control"
+                                name="material_description[]"
+                                rows="1"
+                                oninput="autoGrow(this)"
+                                required
+                            >{{ item.material_description }}</textarea>
+
+                        </td>
+
+                        <td>
+
+                            <input
+                                type="text"
+                                class="form-control"
+                                name="asset_serial_no[]"
+                                value="{{ item.asset_serial_no }}"
+                                required
+                            >
+
+                        </td>
+
+                        <td>
+
+                            <input
+                                type="number"
+                                class="form-control"
+                                name="qty[]"
+                                value="{{ item.qty }}"
+                                min="1"
+                                required
+                            >
+
+                        </td>
+
+                        <td>
+
+                            <input
+                                type="text"
+                                class="form-control"
+                                name="remarks[]"
+                                value="{{ item.remarks }}"
+                            >
+
+                        </td>
+
+                        <td>
+
+                            <button
+                                type="button"
+                                class="btn btn-danger btn-sm"
+                                onclick="removeItem(this)"
+                            >
+                                X
+                            </button>
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                {% else %}
+
+                    <tr>
+
+                        <td>
+
+                            <input
+                                type="number"
+                                class="form-control"
+                                name="item_no[]"
+                                value="1"
+                                readonly
+                                required
+                            >
+
+                        </td>
+
+                        <td>
+
+                            <textarea
+                                class="form-control"
+                                name="material_description[]"
+                                rows="1"
+                                oninput="autoGrow(this)"
+                                required
+                            ></textarea>
+
+                        </td>
+
+                        <td>
+
+                            <input
+                                type="text"
+                                class="form-control"
+                                name="asset_serial_no[]"
+                                required
+                            >
+
+                        </td>
+
+                        <td>
+
+                            <input
+                                type="number"
+                                class="form-control"
+                                name="qty[]"
+                                value="1"
+                                min="1"
+                                required
+                            >
+
+                        </td>
+
+                        <td>
+
+                            <input
+                                type="text"
+                                class="form-control"
+                                name="remarks[]"
+                            >
+
+                        </td>
+
+                        <td>
+
+                            <button
+                                type="button"
+                                class="btn btn-danger btn-sm"
+                                onclick="removeItem(this)"
+                            >
+                                X
+                            </button>
+
+                        </td>
+
+                    </tr>
+
+                {% endif %}
+
+                </tbody>
+
+            </table>
+                
+            <button
+            type="button"
+            class="btn btn-primary"
+            onclick="addItem()"
+            >
+            + Add Item
+            </button>
+
+            <br>
+                </div>
+            </div>
+
+
+            <div class="text-end mt-4">
+
+                <button
+                    type="submit"
+                    class="btn btn-success btn-lg px-5"
+                >
+
+            
+                {% if edit %}
+
+                Update Gate Pass
+
+                {% else %}
+
+                Submit Gate Pass
+
+                {% endif %}
+                </button>
+                </button>
+            </div>
+
+
+        </form>
+
+    </div>
+
+</div>
+<script>
+
+document
+.getElementById(
+    "gatepassForm"
+)
+.addEventListener(
+    "submit",
+    function(event){
+
+        let fromLocation =
+            document
+            .getElementById(
+                "dispatched_from"
+            ).value;
+
+        let toLocation =
+            document
+            .getElementById(
+                "dispatched_to"
+            ).value;
+
+        if(
+            fromLocation ===
+            toLocation
+        ){
+
+            alert(
+                "Dispatched From and Dispatched To cannot be same."
+            );
+
+            event.preventDefault();
+        }
+
+    }
+);
+
+</script>
+
+<script>
+
+let itemNo = document.querySelectorAll("#itemTable tr").length;
+
+function renumberItems() {
+
+    const rows = document.querySelectorAll("#itemTable tr");
+
+    rows.forEach((row, index) => {
+
+        row.querySelector(
+            'input[name="item_no[]"]'
+        ).value = index + 1;
+
+    });
+
+    itemNo = rows.length;
+}
+
+function checkDuplicateAssets() {
+
+    const assets = document.querySelectorAll(
+        'input[name="asset_serial_no[]"]'
+    );
+
+    const values = [];
+
+    for (let asset of assets) {
+
+        const value = asset.value.trim();
+
+        if (
+            value &&
+            values.includes(value)
+        ) {
+
+            alert(
+                "Duplicate Asset / Serial Number found!"
+            );
+
+            asset.focus();
+
+            return false;
+        }
+
+        values.push(value);
+
+    }
+
+    return true;
+}
+
+function addItem() {
+
+    itemNo++;
+
+    const table = document.getElementById(
+        "itemTable"
+    );
+
+    const row = table.insertRow();
+
+    row.innerHTML = `
+
+<td>
+
+<input
+type="number"
+class="form-control"
+name="item_no[]"
+value="${itemNo}"
+readonly
+required>
+
+</td>
+
+<td>
+
+<textarea
+class="form-control"
+name="material_description[]"
+rows="1"
+required
+oninput="autoGrow(this)"
+></textarea>
+
+</td>
+
+<td>
+
+<input
+type="text"
+class="form-control"
+name="asset_serial_no[]"
+required>
+
+</td>
+
+<td>
+
+<input
+type="number"
+class="form-control"
+name="qty[]"
+min="1"
+value="1"
+required>
+
+</td>
+
+<td>
+
+<input
+type="text"
+class="form-control"
+name="remarks[]">
+
+</td>
+
+<td>
+
+<button
+type="button"
+class="btn btn-danger"
+onclick="removeItem(this)"
+>
+
+X
+
+</button>
+
+</td>
+
+`;
+
+    attachEvents();
+
+}
+
+function removeItem(button){
+
+    button.closest("tr").remove();
+
+    renumberItems();
+
+}
+
+function autoGrow(textarea){
+
+    textarea.style.height = "40px";
+
+    textarea.style.height =
+        textarea.scrollHeight + "px";
+
+}
+
+function attachEvents(){
+
+    const rows = document.querySelectorAll(
+        "#itemTable tr"
+    );
+
+    rows.forEach((row,index)=>{
+
+        const inputs =
+            row.querySelectorAll(
+                "input,textarea"
+            );
+
+        inputs.forEach(input=>{
+
+            input.onkeydown=function(e){
+
+                if(
+                    e.key==="Enter"
+                ){
+
+                    e.preventDefault();
+
+                    if(
+                        index===rows.length-1
+                    ){
+
+                        addItem();
+
+                    }
+
+                }
+
+            };
+
+        });
+
+    });
+
+}
+
+document.querySelector("form").onsubmit=function(){
+
+    return checkDuplicateAssets();
+
+};
+
+attachEvents();
+
+</script>
+
+<script>
+
+const today = new Date()
+    .toISOString()
+    .split("T")[0];
+
+const dateInput =
+    document.getElementById(
+        "gatepass_date"
+    );
+
+dateInput.min = today;
+
+if (dateInput.value === "") {
+
+    dateInput.value = today;
+
+}
+
+</script>
+
+{% endblock %}

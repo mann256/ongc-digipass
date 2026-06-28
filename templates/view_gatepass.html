@@ -1,0 +1,360 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Gate Pass
+{% endblock %}
+
+{% block content %}
+
+<div class="card shadow">
+
+    <div class="card-body">
+
+        <div class="text-center">
+
+            <img
+                src="{{ url_for('static', filename='images/ongc_logo.png') }}"
+                width="120"
+                class="mb-2"
+            >
+
+            <h4 class="mt-2 mb-0">
+                OIL AND NATURAL GAS CORPORATION LTD.
+            </h4>
+
+            <h6>
+                MATERIAL E-PASS
+            </h6>
+
+            <hr>
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-6">
+
+                <p>
+                    <b>Gate Pass No :</b>
+                    {{ gate_pass.gp_number }}
+                </p>
+
+                <p>
+                    <b>Date :</b>
+                    {{ gate_pass.gatepass_date }}
+                </p>
+
+                <p>
+                    <b>Location :</b>
+                    {{ gate_pass.location }}
+                </p>
+
+                <p>
+                    <b>Dispatched From :</b>
+                    {{ gate_pass.dispatched_from }}
+                </p>
+
+                <p>
+                    <b>Receiver CPF :</b>
+                    {{ gate_pass.receiver_cpf }}
+                </p>
+
+                <p>
+                    <b>Receiver Name :</b>
+                    {{ gate_pass.receiver_name }}
+                </p>
+
+            </div>
+
+            <div class="col-md-6">
+
+                <p>
+                    <b>Status :</b>
+                    {{ gate_pass.status }}
+                </p>
+
+                {% if gate_pass.status == "CANCELLED" %}
+
+                <p>
+
+                    <b>Cancellation Reason :</b>
+
+                    {{ gate_pass.cancel_reason }}
+
+                </p>
+
+                {% endif %}
+
+                <p>
+                    <b>Vehicle Type :</b>
+                    {{ gate_pass.vehicle_type }}
+                </p>
+
+                <p>
+                    <b>Vehicle Number :</b>
+                    {{ gate_pass.vehicle_number }}
+                </p>
+
+                <p>
+                    <b>Dispatched To :</b>
+                    {{ gate_pass.dispatched_to }}
+                </p>
+
+                <p>
+                    <b>E-Way Bill :</b>
+                    {{ gate_pass.eway_bill_no }}
+                </p>
+
+                <p>
+                    <b>Returnable :</b>
+                    {{ gate_pass.returnable }}
+                </p>
+
+            </div>
+
+        </div>
+
+        <hr>
+
+        <h5>
+            Item Details
+        </h5>
+
+        <table class="table table-bordered">
+
+            <thead class="table-light">
+
+                <tr>
+
+                    <th>Item No</th>
+
+                    <th>Material Description</th>
+
+                    <th>Asset / Serial No</th>
+
+                    <th>Qty</th>
+
+                    <th>Remarks</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% if items %}
+
+                    {% for item in items %}
+
+                    <tr>
+
+                        <td>
+                            {{ item.item_no }}
+                        </td>
+
+                        <td>
+                            {{ item.material_description }}
+                        </td>
+
+                        <td>
+                            {{ item.asset_serial_no }}
+                        </td>
+
+                        <td>
+                            {{ item.qty }}
+                        </td>
+
+                        <td>
+                            {{ item.remarks }}
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                {% else %}
+
+                    <tr>
+
+                        <td colspan="5" class="text-center">
+
+                            No Items Found
+
+                        </td>
+
+                    </tr>
+
+                {% endif %}
+
+            </tbody>
+
+        </table>
+
+        <br>
+
+        <div class="row">
+
+            <div class="col-md-6">
+
+                <b>
+                    Created By
+                </b>
+
+                <br>
+
+                {{ gate_pass.created_by_name }}
+
+            </div>
+
+            <div class="col-md-6 text-end">
+
+                {% if gate_pass.status=="APPROVED" %}
+
+                    <b>Approved By</b>
+
+                    <br>
+
+                    {{ gate_pass.approved_by }}
+
+                    <br>
+
+                    {{ admin_role }}
+
+                {% elif gate_pass.status=="REJECTED" %}
+
+                    <b>Rejected By</b>
+
+                    <br>
+
+                    {{ gate_pass.rejected_by }}
+
+                    <br>
+
+                    {{ admin_role }}
+
+                {% else %}
+
+                    <b>Approval Status</b>
+
+                    <br>
+
+                    Pending Approval
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+        <hr>
+
+        {% if gate_pass.status=="PENDING" %}
+
+        <a
+        href="/approve-gatepass/{{ gate_pass.id }}"
+        class="btn btn-success"
+        >
+
+        Approve
+
+        </a>
+
+        <a
+        href="/reject-gatepass/{{ gate_pass.id }}"
+        class="btn btn-danger"
+        >
+
+        Reject
+
+        </a>
+
+        {% endif %}
+
+        <a
+            href="/print-gatepass/{{ gate_pass.id }}"
+            class="btn btn-primary"
+        >
+            Print
+        </a>
+
+        <a
+            href="/gatepass-list"
+            class="btn btn-secondary"
+        >
+            Back
+        </a>
+
+    </div>
+
+</div>
+
+{% if success %}
+
+<div
+    class="modal fade"
+    id="statusModal"
+    tabindex="-1"
+>
+
+    <div class="modal-dialog modal-dialog-centered">
+
+        <div class="modal-content">
+
+            <div class="modal-body text-center p-5">
+
+                {% if success=="approved" %}
+
+                    <h1 class="text-success">✔</h1>
+
+                    <h3>Gate Pass Approved Successfully</h3>
+
+                {% elif success=="rejected" %}
+
+                    <h1 class="text-danger">✖</h1>
+
+                    <h3>Gate Pass Rejected</h3>
+
+                {% elif success=="cancelled" %}
+
+                    <h1 class="text-warning">⚠</h1>
+
+                    <h3>Gate Pass Cancelled Successfully</h3>
+
+                {% endif %}
+
+                <br>
+
+                <button
+                    class="btn btn-success"
+                    data-bs-dismiss="modal"
+                >
+                    OK
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+window.onload = function () {
+
+    const modal = new bootstrap.Modal(
+        document.getElementById(
+            "statusModal"
+        )
+    );
+
+    modal.show();
+
+}
+
+</script>
+
+{% endif %}
+
+{% endblock %}

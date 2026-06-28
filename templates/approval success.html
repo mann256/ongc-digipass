@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Gate Pass Approved
+{% endblock %}
+
+{% block content %}
+
+<div class="d-flex justify-content-center mt-5">
+
+    <div class="card shadow text-center" style="width:450px;">
+
+        <div class="card-body">
+
+            <h1 class="text-success">
+                ✔
+            </h1>
+
+            <h3>
+                Gate Pass Approved Successfully
+            </h3>
+
+            <br>
+
+            <a
+                href="/view-gatepass/{{ gate_pass.id }}"
+                class="btn btn-success"
+            >
+                OK
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

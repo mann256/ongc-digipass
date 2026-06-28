@@ -1,0 +1,302 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Dashboard
+{% endblock %}
+
+{% block content %}
+
+<h2 class="mb-4">
+    Gate Pass Material Status
+</h2>
+
+<div class="card mb-4">
+
+    <div class="card-body">
+
+        <div class="row align-items-center">
+
+            <div class="col-md-8">
+
+                <h3 class="fw-bold text-primary">
+
+                    Welcome, {{ current_user }}
+
+                </h3>
+
+                <p class="text-muted mb-1">
+
+                    ONGC DigiPass Portal
+
+                </p>
+
+                <p class="mb-0">
+
+                    Role :
+                    <strong>{{ current_role }}</strong>
+
+                </p>
+
+            </div>
+
+            <div class="col-md-4 text-end">
+
+                <i
+                    class="bi bi-person-circle"
+                    style="
+                        font-size:70px;
+                        color:#003366;
+                    "
+                ></i>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="row">
+
+   <div class="col-xl-2 col-lg-4 col-md-6 mb-4">
+
+        <div class="card dashboard-card pending-card">
+
+            <div class="card-body text-center">
+
+                <i
+                    class="bi bi-hourglass-split dashboard-icon"
+                ></i>
+
+                <h6 class="mt-3">
+
+                    Pending
+
+                </h6>
+
+                <h2 class="fw-bold">
+
+                    {{ pending_count }}
+
+                </h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-xl-2 col-lg-4 col-md-6 mb-4">
+
+        <div class="card dashboard-card approved-card">
+
+            <div class="card-body text-center">
+
+                <i class="bi bi-check-circle-fill dashboard-icon"></i>
+
+                <h6 class="mt-3">
+                    Approved
+                </h6>
+
+                <h2 class="fw-bold">
+                    {{ approved_count }}
+                </h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-xl-2 col-lg-4 col-md-6 mb-4">
+
+        <div class="card dashboard-card rejected-card">
+
+            <div class="card-body text-center">
+
+                <i class="bi bi-x-circle-fill dashboard-icon"></i>
+
+                <h6 class="mt-3">
+                    Rejected
+                </h6>
+
+                <h2 class="fw-bold">
+                    {{ rejected_count }}
+                </h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-xl-2 col-lg-4 col-md-6 mb-4">
+
+        <div class="card dashboard-card cancelled-card">
+
+            <div class="card-body text-center">
+
+                <i class="bi bi-slash-circle-fill dashboard-icon"></i>
+
+                <h6 class="mt-3">
+                    Cancelled
+                </h6>
+
+                <h2 class="fw-bold">
+                    {{ cancelled_count }}
+                </h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-xl-2 col-lg-4 col-md-6 mb-4">
+
+        <div class="card dashboard-card transit-card">
+
+            <div class="card-body text-center">
+
+                <i class="bi bi-truck dashboard-icon"></i>
+
+                <h6 class="mt-3">
+                    In Transit
+                </h6>
+
+                <h2 class="fw-bold">
+                    {{ in_transit_count }}
+                </h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-xl-2 col-lg-4 col-md-6 mb-4">
+
+        <div class="card dashboard-card completed-card">
+
+            <div class="card-body text-center">
+
+                <i class="bi bi-box-seam-fill dashboard-icon"></i>
+
+                <h6 class="mt-3">
+                    Completed
+                </h6>
+
+                <h2 class="fw-bold">
+                    {{ completed_count }}
+                </h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+  </div>
+
+<!-- Total Passes -->
+
+    <div class="row justify-content-center mt-2">
+
+        <div class="col-xl-4 col-lg-5 col-md-6">
+
+            <div class="card dashboard-card total-card">
+
+                <div class="card-body text-center">
+
+                    <i
+                        class="bi bi-bar-chart-fill dashboard-icon mb-3"
+                        style="font-size:60px;"
+                    ></i>
+
+                    <h6 class="mt-3">
+
+                        Total Passes
+
+                    </h6>
+
+                    <h1 class="display-4 fw-bold">
+
+                        {{ total_count }}
+
+                    </h1>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="card mt-4">
+
+        <div class="card-body">
+
+            <h4 class="mb-4">
+
+                Quick Actions
+
+            </h4>
+
+            <div class="row">
+
+                <div class="col-md-4 mb-3">
+
+                    <a
+                        href="/create-gatepass"
+                        class="btn btn-primary w-100 py-3"
+                    >
+
+                        <i class="bi bi-file-earmark-plus-fill"></i>
+
+                        Create Gate Pass
+
+                    </a>
+
+                </div>
+
+                <div class="col-md-4 mb-3">
+
+                    <a
+                        href="/gatepass-list"
+                        class="btn btn-success w-100 py-3"
+                    >
+
+                        <i class="bi bi-list-check"></i>
+
+                        Gate Pass List
+
+                    </a>
+
+                </div>
+
+                <div class="col-md-4 mb-3">
+
+                    <a
+                        href="/export-gatepass-report"
+                        class="btn btn-warning text-white w-100 py-3"
+                    >
+
+                        <i class="bi bi-file-earmark-excel-fill"></i>
+
+                        Export Excel
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+{% endblock %}

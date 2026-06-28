@@ -1,0 +1,423 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Gate Pass List
+{% endblock %}
+
+{% block content %}
+
+<h2 class="mb-4">
+    Gate Pass List
+</h2>
+<div class="card mb-3">
+
+    <div class="card-body">
+
+        <form method="GET">
+
+            <div class="row">
+
+                <div class="col-md-3">
+
+                    <label class="form-label">
+                        From Date
+                    </label>
+
+                    <input
+                        type="date"
+                        name="from_date"
+                        class="form-control"
+                        value="{{ request.args.get('from_date','') }}"
+                    >
+
+                </div>
+
+                <div class="col-md-3">
+
+                    <label class="form-label">
+                        To Date
+                    </label>
+
+                    <input
+                        type="date"
+                        name="to_date"
+                        class="form-control"
+                        value="{{ request.args.get('to_date','') }}"
+                    >
+
+                </div>
+
+                <div class="col-md-3">
+
+                    <label class="form-label">
+                        Status
+                    </label>
+
+                    <select
+                        name="status"
+                        class="form-select"
+                    >
+
+                        <option value=""
+                            {% if request.args.get("status") == "" %}
+                            selected
+                            {% endif %}
+                        >
+                            All
+                        </option>
+
+                        <option value="PENDING"
+                            {% if request.args.get("status") == "PENDING" %}
+                            selected
+                            {% endif %}
+                        >
+                            Pending
+                        </option>
+
+                        <option value="APPROVED"
+                            {% if request.args.get("status") == "APPROVED" %}
+                            selected
+                            {% endif %}
+                        >
+                            Approved
+                        </option>
+
+                        <option value="IN_TRANSIT"
+                            {% if request.args.get("status") == "IN_TRANSIT" %}
+                            selected
+                            {% endif %}
+                        >
+                            In Transit
+                        </option>
+
+                        <option value="COMPLETED"
+                            {% if request.args.get("status") == "COMPLETED" %}
+                            selected
+                            {% endif %}
+                        >
+                            Completed
+                        </option>
+
+                        <option value="REJECTED"
+                            {% if request.args.get("status") == "REJECTED" %}
+                            selected
+                            {% endif %}
+                        >
+                            Rejected
+                        </option>
+
+                        <option value="CANCELLED"
+                            {% if request.args.get("status") == "CANCELLED" %}
+                            selected
+                            {% endif %}
+                        >
+                            Cancelled
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <div
+                    class="col-md-3 d-flex align-items-end"
+                >
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary me-2"
+                    >
+                        Apply Filter
+                    </button>
+
+                    <a
+                        href="/gatepass-list"
+                        class="btn btn-secondary me-2"
+                    >
+                        Reset
+                    </a>
+
+                    <a
+                        href="/export-gatepass-report"
+                        class="btn btn-success"
+                    >
+                        Export Excel
+                    </a>
+
+                </div>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+<div class="card">
+
+    <div class="card-body">
+
+        <table
+            class="table table-bordered table-hover"
+        >
+
+            <thead class="table-light">
+
+                <tr>
+
+                    <th>
+                        GP No
+                    </th>
+
+                    <th>
+                        Date
+                    </th>
+
+                    <th>
+                        Location
+                    </th>
+
+                    <th>
+                        Dispatched From
+                    </th>
+
+                    <th>
+                        Dispatched To
+                    </th>
+
+                    <th>
+                        Receiver Name
+                    </th>
+
+                    <th>
+                        Vehicle No
+                    </th>
+
+                    <th>
+                        Status
+                    </th>
+
+                    <th>
+                        Action
+                    </th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for gp in gate_passes %}
+
+                <tr>
+
+                    <td>
+                        {{ gp.gp_number }}
+                    </td>
+
+                    <td>
+                        {{ gp.gatepass_date }}
+                    </td>
+
+                    <td>
+                        {{ gp.location }}
+                    </td>
+
+                    <td>
+                        {{ gp.dispatched_from }}
+                    </td>
+
+                    <td>
+                        {{ gp.dispatched_to }}
+                    </td>
+
+                    <td>
+                        {{ gp.receiver_name }}
+                    </td>
+
+                    <td>
+                        {{ gp.vehicle_number }}
+                    </td>
+
+                    <td>
+
+                        {% if gp.status=="PENDING" %}
+
+                        <span class="badge bg-warning">
+                            Pending
+                        </span>
+
+                        {% elif gp.status=="APPROVED" %}
+
+                        <span class="badge bg-success">
+                            Approved
+                        </span>
+
+                        {% elif gp.status=="REJECTED" %}
+
+                        <span class="badge bg-danger">
+                            Rejected
+                        </span>
+
+                        {% elif gp.status=="CANCELLED" %}
+
+                        <span class="badge bg-dark">
+                            Cancelled
+                        </span>
+
+                        {% elif gp.status=="IN_TRANSIT" %}
+
+                        <span class="badge bg-primary">
+                            In Transit
+                        </span>
+
+                        {% elif gp.status=="COMPLETED" %}
+
+                        <span class="badge bg-info">
+                            Completed
+                        </span>
+
+                        {% endif %}
+
+                    </td>
+
+                    <td>
+
+                        <!-- VIEW -->
+
+                        <a
+                            href="/view-gatepass/{{ gp.id }}"
+                            class="btn btn-primary btn-sm"
+                        >
+                            View
+                        </a>
+
+                        <!-- PRINT -->
+
+                        <a
+                            href="/print-gatepass/{{ gp.id }}"
+                            class="btn btn-secondary btn-sm"
+                        >
+                            Print
+                        </a>
+
+
+                        {% if current_role == "USER" %}
+
+                            {% if gp.status == "PENDING" %}
+
+                                <a
+                                    href="/edit-gatepass/{{ gp.id }}"
+                                    class="btn btn-warning btn-sm"
+                                >
+                                    Edit
+                                </a>
+
+                                <a
+                                    href="/cancel-gatepass/{{ gp.id }}"
+                                    class="btn btn-danger btn-sm"
+                                >
+                                    Cancel
+                                </a>
+
+                            {% elif gp.status == "APPROVED" %}
+
+                                <a
+                                    href="/cancel-gatepass/{{ gp.id }}"
+                                    class="btn btn-danger btn-sm"
+                                >
+                                    Cancel
+                                </a>
+
+                            {% endif %}
+
+                        {% endif %}
+
+
+
+                        {% if current_role == "ADMIN"
+                        or current_role == "HEAD_INFOCOM" %}
+
+                            {% if gp.status == "PENDING" %}
+
+                                <a
+                                    href="/edit-gatepass/{{ gp.id }}"
+                                    class="btn btn-warning btn-sm"
+                                >
+                                    Edit
+                                </a>
+
+                                <a
+                                    href="/approve-gatepass/{{ gp.id }}"
+                                    class="btn btn-success btn-sm"
+                                >
+                                    Approve
+                                </a>
+
+                                <a
+                                    href="/reject-gatepass/{{ gp.id }}"
+                                    class="btn btn-danger btn-sm"
+                                >
+                                    Reject
+                                </a>
+
+                            {% endif %}
+
+                            {% if gp.status!="CANCELLED"
+                            and gp.status!="COMPLETED" %}
+
+                            <a
+                                href="/cancel-gatepass/{{ gp.id }}"
+                                class="btn btn-dark btn-sm"
+                            >
+                                Cancel
+                            </a>
+
+                            {% endif %}
+
+                        {% endif %}
+
+
+
+
+
+
+                        {% if current_role == "GATE_SECURITY" %}
+
+                            {% if gp.status == "APPROVED" %}
+
+                                <a
+                                    href="/checkout-gatepass/{{ gp.id }}"
+                                    class="btn btn-success btn-sm"
+                                >
+                                    Check-Out
+                                </a>
+
+                            {% elif gp.status == "IN_TRANSIT" %}
+
+                                <a
+                                    href="/checkin-gatepass/{{ gp.id }}"
+                                    class="btn btn-primary btn-sm"
+                                >
+                                    Check-In
+                                </a>
+
+                            {% endif %}
+
+                        {% endif %}
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+{% endblock %}

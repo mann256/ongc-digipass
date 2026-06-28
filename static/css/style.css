@@ -1,0 +1,479 @@
+/* ===================================================
+   ONGC DigiPass Theme
+=================================================== */
+body{
+
+    background:#FFF5F5;
+
+    font-family:"Poppins",sans-serif;
+
+    color:#3D2B2B;
+
+}
+
+
+/* ===================================================
+   Sidebar
+=================================================== */
+
+.sidebar{
+
+    width:250px;
+
+    min-height:100vh;
+
+    background:linear-gradient(
+    180deg,
+    #6F0713,
+    #A50E1C,
+    #54040D
+    );
+
+    position:fixed;
+
+    left:0;
+
+    top:0;
+
+    overflow-y:auto;
+
+    box-shadow:4px 0 15px rgba(0,0,0,.15);
+
+}
+
+.sidebar-header{
+
+    text-align:center;
+
+    padding:25px;
+
+    border-bottom:1px solid rgba(255,255,255,.15);
+
+}
+
+.sidebar-header img{
+
+    margin-bottom:12px;
+
+}
+
+.sidebar-header h4{
+
+    color:white;
+
+    font-weight:700;
+
+}
+
+.sidebar-header small{
+
+    color:#F9D8D8;
+
+}
+
+
+/* ===================================================
+   Sidebar Menu
+=================================================== */
+
+.sidebar a{
+
+    display:block;
+
+    color:white;
+
+    text-decoration:none;
+
+    padding:13px 20px;
+
+    margin:8px 15px;
+
+    border-radius:10px;
+
+    transition:.25s;
+
+    font-size:15px;
+
+}
+
+.sidebar a i{
+
+    margin-right:10px;
+
+}
+
+.sidebar a:hover{
+
+    background:rgba(255,255,255,.18);
+
+    transform:translateX(6px);
+
+    color:white;
+
+}
+
+
+/* ===================================================
+   Main Content
+=================================================== */
+
+.content{
+
+    margin-left:250px;
+
+}
+
+
+/* ===================================================
+   Top Bar
+=================================================== */
+
+.topbar{
+
+    background:#FFFDFD;
+
+    border-bottom:4px solid #A50E1C;
+
+    padding:18px 30px;
+
+    box-shadow:0 2px 8px rgba(0,0,0,.08);
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+}
+
+.topbar h4{
+
+    font-weight:700;
+
+    color:#A50E1C;
+
+}
+
+
+/* ===================================================
+   Page Body
+=================================================== */
+
+.page-body{
+
+    padding:30px;
+
+    background:
+
+    linear-gradient(
+
+        135deg,
+
+        #FFF8F8,
+
+        #FFF3F3,
+
+        #FFF8F8
+
+    );
+
+    min-height:100vh;
+
+}
+.page-card{
+
+    background:white;
+
+    border-radius:18px;
+
+    padding:25px;
+
+    border-top:5px solid #A50E1C;
+
+    box-shadow:0 8px 25px rgba(0,0,0,.08);
+
+}
+
+
+/* ===================================================
+   Buttons
+=================================================== */
+
+.btn{
+
+    border-radius:8px;
+
+}
+
+.btn-primary{
+
+    background:#A50E1C;
+
+    border:none;
+
+}
+
+.btn-primary:hover{
+
+    background:#860A16;
+
+}
+
+.btn-success{
+
+    background:#198754;
+
+}
+
+.btn-warning{
+
+    color:white;
+
+}
+
+.btn-danger{
+
+    background:#DC3545;
+
+}
+
+
+/* ===================================================
+   Tables
+=================================================== */
+
+.table{
+
+    border-radius:10px;
+
+    overflow:hidden;
+
+}
+
+.table thead{
+
+    background:#A50E1C;
+
+    color:white;
+
+}
+
+.table-hover tbody tr:hover{
+
+   background:#FFF3F3; 
+
+}
+
+
+/* ===================================================
+   Cards
+=================================================== */
+
+.card{
+
+    border:none;
+
+    border-radius:14px;
+
+    box-shadow:0 4px 12px rgba(0,0,0,.08);
+
+}
+
+
+/* ===================================================
+   Badges
+=================================================== */
+
+.badge{
+
+    font-size:13px;
+
+    padding:7px 12px;
+
+    border-radius:30px;
+
+}
+
+
+/* ===================================================
+   Forms
+=================================================== */
+
+.form-control,
+
+.form-select{
+
+    border-radius:8px;
+
+}
+
+.form-control:focus,
+
+.form-select:focus{
+
+    border-color:#A50E1C;
+
+    box-shadow:0 0 0 .2rem rgba(165,14,28,.15);
+
+}
+
+.sidebar a.active{
+
+    background:white;
+
+    color:#A50E1C;
+
+    font-weight:700;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.18);
+
+}
+
+.sidebar a.active i{
+
+    color:#A50E1C;
+
+}
+
+/* ==========================================
+   Dashboard Cards
+========================================== */
+
+.dashboard-card{
+
+    border:none;
+
+    border-radius:18px;
+
+    transition:0.30s;
+
+    cursor:pointer;
+
+    min-height:220px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+}
+
+.dashboard-card:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:0 20px 40px rgba(165,14,28,.18);
+
+}
+
+.dashboard-icon{
+
+    font-size:55px;
+
+    margin-bottom:15px;
+
+}
+
+.pending-card{
+
+    background:#FFF8E1;
+
+    color:#8B6F00;
+
+}
+
+.approved-card{
+
+    background:#E8F5E9;
+
+    color:#145A32;
+
+}
+
+.rejected-card{
+
+    background:#FDEDEC;
+
+    color:#922B21;
+
+}
+
+.cancelled-card{
+
+    background:#F4F6F6;
+
+    color:#566573;
+
+}
+
+.transit-card{
+
+    background:#FFECEC;
+
+    color:#A50E1C;
+
+}
+
+.completed-card{
+
+    background:#F9F0F3;
+
+    color:#7A1F47;
+
+}
+
+.total-card{
+
+    background:#EBF5FB;
+
+    color:#1B4F72;
+
+}
+
+.total-card{
+
+    min-height:180px;
+
+}
+
+.total-card{
+
+    background:linear-gradient(
+
+        135deg,
+
+        #FFF0F0,
+
+        #FFDCDC
+
+    );
+
+    color:#8B0D19;
+
+}
+
+/* =====================================
+   Quick Action Buttons
+===================================== */
+
+.btn{
+
+    transition:0.25s;
+
+}
+
+.btn:hover{
+
+    transform:translateY(-4px);
+
+    box-shadow:0 10px 25px rgba(165,14,28,.25);
+
+}
+
+.btn i{
+
+    margin-right:8px;
+
+}
+
