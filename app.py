@@ -23,7 +23,19 @@ app.secret_key = Config.SECRET_KEY
 
 # Configure app
 app.config.from_object(Config)
-print(Config.SQLALCHEMY_DATABASE_URI)
+import os
+
+print("DB_USER =", os.getenv("DB_USER"))
+print("DB_PASSWORD =", os.getenv("DB_PASSWORD"))
+print("DB_HOST =", os.getenv("DB_HOST"))
+print("DB_PORT =", os.getenv("DB_PORT"))
+print("DB_NAME =", os.getenv("DB_NAME"))
+
+print("MYSQLUSER =", os.getenv("MYSQLUSER"))
+print("MYSQLPASSWORD =", os.getenv("MYSQLPASSWORD"))
+print("MYSQLHOST =", os.getenv("MYSQLHOST"))
+print("MYSQLPORT =", os.getenv("MYSQLPORT"))
+print("MYSQLDATABASE =", os.getenv("MYSQLDATABASE"))
 
 # Initialize database
 db.init_app(app)
