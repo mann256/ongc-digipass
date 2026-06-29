@@ -444,10 +444,6 @@ def generate_gatepass_pdf(
 
         [
 
-            "<b>Address To</b>",
-
-            gate_pass.address_to,
-
             "<b>Created By</b>",
 
             gate_pass.created_by_name
