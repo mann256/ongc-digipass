@@ -201,18 +201,77 @@ Create Gate Pass
 
                 </div>
 
-                <div class="col-md-6">
+                <div class="mb-3">
 
                     <label class="form-label">
-                        Dispatch to*
+
+                        Dispatched To
+
+                    </label>
+
+                    <select
+                        class="form-select"
+                        id="dispatched_to"
+                        name="dispatched_to"
+                        onchange="toggleOtherLocation()"
+                    >
+
+                        <option value="">Select Location</option>
+
+                        <option value="Infocom"
+                        {% if edit and gate_pass.dispatched_to=="Infocom" %}
+                        selected
+                        {% endif %}
+                        >
+                            Infocom
+                        </option>
+
+                        <option value="Avani Bhavan"
+                        {% if edit and gate_pass.dispatched_to=="Avani Bhavan" %}
+                        selected
+                        {% endif %}
+                        >
+                            Avani Bhavan
+                        </option>
+
+                        <option value="Sabarmati"
+                        {% if edit and gate_pass.dispatched_to=="Sabarmati" %}
+                        selected
+                        {% endif %}
+                        >
+                            Sabarmati
+                        </option>
+
+                        <option value="OTHER"
+                        {% if edit and gate_pass.dispatched_to not in
+                            ["Infocom","Avani Bhavan","Sabarmati"] %}
+                        selected
+                        {% endif %}
+                        >
+                            Other
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <div
+                    id="other_location_div"
+                    class="mb-3"
+                    style="display:none;"
+                >
+
+                    <label class="form-label">
+
+                        Specify Location
+
                     </label>
 
                     <input
                         type="text"
                         class="form-control"
-                        name="dispatch_to"
-                        value="{{ gate_pass.dispatch_to if edit else '' }}"
-                        required
+                        id="other_location"
+                        value="{% if edit and gate_pass.dispatched_to not in ['Infocom','Avani Bhavan','Sabarmati'] %}{{ gate_pass.dispatched_to }}{% endif %}"
                     >
 
                 </div>
@@ -1000,6 +1059,40 @@ if (dateInput.value === "") {
     dateInput.value = today;
 
 }
+
+</script>
+
+<script>
+
+function toggleOtherLocation(){
+
+    const dropdown =
+        document.getElementById("dispatched_to");
+
+    const otherDiv =
+        document.getElementById("other_location_div");
+
+    const otherInput =
+        document.getElementById("other_location");
+
+    if(dropdown.value==="OTHER"){
+
+        otherDiv.style.display="block";
+
+        otherInput.name="dispatched_to";
+
+    }
+    else{
+
+        otherDiv.style.display="none";
+
+        otherInput.removeAttribute("name");
+
+    }
+
+}
+
+window.onload = toggleOtherLocation;
 
 </script>
 
