@@ -446,7 +446,11 @@ def generate_gatepass_pdf(
 
             "<b>Created By</b>",
 
-            gate_pass.created_by_name
+            gate_pass.created_by_name,
+
+            "<b>Approved By</b>",
+
+            gate_pass.approved_by if gate_pass.approved_by else "-"
 
         ]
 
