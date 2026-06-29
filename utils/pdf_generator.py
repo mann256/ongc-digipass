@@ -2,6 +2,7 @@ import os
 import qrcode
 
 from datetime import datetime
+from flask import request
 
 from reportlab.lib import colors
 from reportlab.lib.enums import TA_CENTER
@@ -143,7 +144,7 @@ def generate_gatepass_pdf(
 
     qr_url = (
 
-        f"{BASE_URL}/security?gp={gate_pass.gp_number}"
+        request.url_root.rstrip("/") + f"/security?gp={gate_pass.gp_number}"
 
     )
 
