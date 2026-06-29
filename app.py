@@ -1004,33 +1004,104 @@ def security_scan():
         
         if action == "accept":
 
-            if gate_pass.status == "APPROVED":
+            # ==========================================
+            # NON-RETURNABLE GATE PASS
+            # ==========================================
 
-                gate_pass.status = "IN_TRANSIT"
+            if gate_pass.returnable == "NO":
 
-                gate_pass.checkout_guard_name = guard_name
-                gate_pass.checkout_time = datetime.now()
-                gate_pass.checkout_remarks = remarks
+                if gate_pass.status == "APPROVED":
 
-            elif gate_pass.status == "IN_TRANSIT":
+                    gate_pass.status = "IN_TRANSIT"
 
-                gate_pass.status = "COMPLETED"
+                    gate_pass.checkout_guard_name = guard_name
+                    gate_pass.checkout_time = datetime.now()
+                    gate_pass.checkout_remarks = remarks
 
-                gate_pass.checkin_guard_name = guard_name
-                gate_pass.checkin_time = datetime.now()
-                gate_pass.checkin_remarks = remarks
+                elif gate_pass.status == "IN_TRANSIT":
 
-            elif gate_pass.status == "COMPLETED":
+                    gate_pass.status = "COMPLETED"
 
-                return "Gate Pass Already Completed"
+                    gate_pass.checkin_guard_name = guard_name
+                    gate_pass.checkin_time = datetime.now()
+                    gate_pass.checkin_remarks = remarks
 
-            elif gate_pass.status == "CANCELLED":
+                elif gate_pass.status == "COMPLETED":
 
-                return "Gate Pass Already Cancelled"
+                    return "Gate Pass Already Completed"
+
+                elif gate_pass.status == "CANCELLED":
+
+                    return "Gate Pass Already Cancelled"
+
+                else:
+
+                    return f"Invalid Gate Pass Status : {gate_pass.status}", 400
+
+            # ==========================================
+            # RETURNABLE GATE PASS
+            # ==========================================
 
             else:
 
-                return f"Invalid Gate Pass Status : {gate_pass.status}", 400
+                # First Checkout
+                if gate_pass.status == "APPROVED":
+
+                    gate_pass.status = "IN_TRANSIT"
+                    gate_pass.trip_number = 1
+
+                    gate_pass.first_checkout_guard_name = guard_name
+                    gate_pass.first_checkout_time = datetime.now()
+                    gate_pass.first_checkout_remarks = remarks
+
+                # First Check-In
+                elif (
+                    gate_pass.status == "IN_TRANSIT"
+                    and gate_pass.trip_number == 1
+                ):
+
+                    gate_pass.status = "IN_TRANSIT"
+                    gate_pass.trip_number = 2
+
+                    gate_pass.first_checkin_guard_name = guard_name
+                    gate_pass.first_checkin_time = datetime.now()
+                    gate_pass.first_checkin_remarks = remarks
+
+                # Second Checkout
+                elif (
+                    gate_pass.status == "IN_TRANSIT"
+                    and gate_pass.trip_number == 2
+                ):
+
+                    gate_pass.trip_number = 3
+
+                    gate_pass.second_checkout_guard_name = guard_name
+                    gate_pass.second_checkout_time = datetime.now()
+                    gate_pass.second_checkout_remarks = remarks
+
+                # Second Check-In
+                elif (
+                    gate_pass.status == "IN_TRANSIT"
+                    and gate_pass.trip_number == 3
+                ):
+
+                    gate_pass.status = "COMPLETED"
+
+                    gate_pass.second_checkin_guard_name = guard_name
+                    gate_pass.second_checkin_time = datetime.now()
+                    gate_pass.second_checkin_remarks = remarks
+
+                elif gate_pass.status == "COMPLETED":
+
+                    return "Gate Pass Already Completed"
+
+                elif gate_pass.status == "CANCELLED":
+
+                    return "Gate Pass Already Cancelled"
+
+                else:
+
+                    return f"Invalid Gate Pass Status : {gate_pass.status}", 400
             
         elif action == "decline":
 

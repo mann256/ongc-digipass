@@ -204,46 +204,20 @@ Create Gate Pass
                 <div class="col-md-6">
 
                     <label class="form-label">
-                        Dispatched To*
+                        Dispatch to*
                     </label>
 
-                    <select
-                        class="form-select"
-                        name="dispatched_to"
-                        id="dispatched_to"
+                    <input
+                        type="text"
+                        class="form-control"
+                        name="dispatch_to"
+                        value="{{ gate_pass.dispatch_to if edit else '' }}"
                         required
                     >
 
-                        <option
-                            value="Infocom"
-                            {% if edit and gate_pass.dispatched_to=="Infocom" %}
-                            selected
-                            {% endif %}
-                            >
-                            Infocom
-                        </option>
-
-                        <option
-                            value="Avani Bhavan"
-                            {% if edit and gate_pass.dispatched_to=="Avani Bhavan" %}
-                            selected
-                            {% endif %}
-                            >
-                            Avani Bhavan
-                        </option>
-
-                        <option
-                            value="Sabarmati"
-                            {% if edit and gate_pass.dispatched_to=="Sabarmati" %}
-                            selected
-                            {% endif %}
-                            >
-                            Sabarmati
-                        </option>
-
-                    </select>
-
                 </div>
+
+        
 
             </div>
 
@@ -441,22 +415,6 @@ Create Gate Pass
                         </option>
 
                     </select>
-
-                </div>
-
-                <div class="col-md-6">
-
-                    <label class="form-label">
-                        Address To*
-                    </label>
-
-                    <input
-                        type="text"
-                        class="form-control"
-                        name="address_to"
-                        value="{{ gate_pass.address_to if edit else '' }}"
-                        required
-                    >
 
                 </div>
 

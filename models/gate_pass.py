@@ -107,3 +107,65 @@ class GatePass(db.Model):
     checkin_remarks = db.Column(
         db.String(250)
     )
+
+    # -------------------------
+    # Returnable Gate Pass Flow
+    # -------------------------
+
+    trip_number = db.Column(
+        db.Integer,
+        default=1,
+        nullable=False
+    )
+
+    # First Movement
+
+    first_checkout_guard_name = db.Column(
+        db.String(100)
+    )
+
+    first_checkout_time = db.Column(
+        db.DateTime
+    )
+
+    first_checkout_remarks = db.Column(
+        db.String(250)
+    )
+
+    first_checkin_guard_name = db.Column(
+        db.String(100)
+    )
+
+    first_checkin_time = db.Column(
+        db.DateTime
+    )
+
+    first_checkin_remarks = db.Column(
+        db.String(250)
+    )
+
+    # Second Movement
+
+    second_checkout_guard_name = db.Column(
+        db.String(100)
+    )
+
+    second_checkout_time = db.Column(
+        db.DateTime
+    )
+
+    second_checkout_remarks = db.Column(
+        db.String(250)
+    )
+
+    second_checkin_guard_name = db.Column(
+        db.String(100)
+    )
+
+    second_checkin_time = db.Column(
+        db.DateTime
+    )
+
+    second_checkin_remarks = db.Column(
+        db.String(250)
+    )

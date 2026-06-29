@@ -61,6 +61,25 @@ ONGC MATERIAL E-PASS
 {{ gate_pass.status }}
 
 </p>
+<p>
+
+<b>Returnable :</b>
+
+{{ gate_pass.returnable }}
+
+</p>
+
+{% if gate_pass.returnable == "YES" %}
+
+<p>
+
+<b>Movement :</b>
+
+{{ gate_pass.trip_number }}
+
+</p>
+
+{% IN_TRANSIT
 
 <p>
 
@@ -196,21 +215,39 @@ Approval Details
 
 <h5 class="text-center">
 
-{% if gate_pass.status=="APPROVED" %}
+{% if gate_pass.returnable == "NO" %}
 
-Security Check-Out
+    {% if gate_pass.status == "APPROVED" %}
+        Security Check-Out
+    {% elif gate_pass.status == "IN_TRANSIT" %}
+        Security Check-In
+    {% elif gate_pass.status == "COMPLETED" %}
+        Gate Pass Completed
+    {% elif gate_pass.status == "CANCELLED" %}
+        Gate Pass Cancelled
+    {% endif %}
 
-{% elif gate_pass.status=="IN_TRANSIT" %}
+{% else %}
 
-Security Check-In
+    {% if gate_pass.status == "APPROVED" %}
+        First Security Check-Out
 
-{% elif gate_pass.status=="COMPLETED" %}
+    {% elif gate_pass.status == "IN_TRANSIT" and gate_pass.trip_number == 1 %}
+        First Security Check-In
 
-Gate Pass Completed
+    {% elif gate_pass.status == "IN_TRANSIT" %}
+        Second Security Check-Out
 
-{% elif gate_pass.status=="CANCELLED" %}
+    {% elif gate_pass.status == "IN_TRANSIT" and gate_pass.trip_number == 2 %}
+        Second Security Check-In
 
-Gate Pass Cancelled
+    {% elif gate_pass.status == "COMPLETED" %}
+        Gate Pass Completed
+
+    {% elif gate_pass.status == "CANCELLED" %}
+        Gate Pass Cancelled
+
+    {% endif %}
 
 {% endif %}
 
@@ -281,19 +318,57 @@ Remarks
 name="remarks"
 class="form-control"
 rows="3"
+required
 ></textarea>
 
 </div>
 
 <button
-type="submit"
-class="btn btn-success"
-name="action"
-value="accept"
+    type="submit"
+    class="btn btn-success"
+    name="action"
+    value="accept"
+
+    {% if gate_pass.status == "COMPLETED"
+       or gate_pass.status == "CANCELLED" %}
+       disabled
+    {% endif %}
 >
 
-Accept
+{% if gate_pass.returnable == "NO" %}
 
+    {% if gate_pass.status == "APPROVED" %}
+        Check Out
+    {% elif gate_pass.status == "IN_TRANSIT" %}
+        Check In
+    {% elif gate_pass.status == "COMPLETED" %}
+        Completed
+    {% else %}
+        Accept
+    {% endif %}
+
+{% else %}
+
+    {% if gate_pass.status == "APPROVED" %}
+        First Check Out
+
+    {% elif gate_pass.status == "IN_TRANSIT" and gate_pass.trip_number == 1 %}
+        First Check In
+
+    {% elif gate_pass.status == "IN_TRANSIT" %}
+        Second Check Out
+
+    {% elif gate_pass.status == "IN_TRANSIT" and gate_pass.trip_number == 2 %}
+        Second Check In
+
+    {% elif gate_pass.status == "COMPLETED" %}
+        Completed
+
+    {% else %}
+        Accept
+    {% endif %}
+
+{% endif %}
 </button>
 
 <button
@@ -301,11 +376,18 @@ type="submit"
 class="btn btn-danger"
 name="action"
 value="decline"
+
+{% if gate_pass.status == "COMPLETED"
+   or gate_pass.status == "CANCELLED" %}
+disabled
+{% endif %}
+
 >
-
 Decline
-
 </button>
+
+
+
 
 </form>
 
