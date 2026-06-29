@@ -201,7 +201,7 @@ Create Gate Pass
 
                 </div>
 
-                <div class="mb-3">
+                <div class="col-md-6 mb-3">
 
                     <label class="form-label">
 
@@ -254,6 +254,8 @@ Create Gate Pass
                     </select>
 
                 </div>
+
+                </div>   <!-- closes the row -->
 
                 <div
                     id="other_location_div"
@@ -554,7 +556,7 @@ Create Gate Pass
 
                 <div class="card-body">
 
-            <table class="table table-bordered">
+            <table class="table table-bordered table-sm align-middle">
 
                 <thead class="table-light">
 
@@ -570,6 +572,10 @@ Create Gate Pass
 
                         <th>
                             Asset / Serial No*
+                        </th>
+
+                        <th>
+                            Census No.
                         </th>
 
                         <th>
@@ -635,6 +641,17 @@ Create Gate Pass
                         <td>
 
                             <input
+                                type="text"
+                                class="form-control"
+                                name="census_no[]"
+                                value="{{ item.census_no if item.census_no else '' }}"
+                            >
+
+                        </td>
+
+                        <td>
+
+                            <input
                                 type="number"
                                 class="form-control"
                                 name="qty[]"
@@ -692,7 +709,8 @@ Create Gate Pass
                         <td>
 
                             <textarea
-                                class="form-control"
+                                class="form-control form-control-sm"
+                                style="min-width:220px;"
                                 name="material_description[]"
                                 rows="1"
                                 oninput="autoGrow(this)"
@@ -708,6 +726,16 @@ Create Gate Pass
                                 class="form-control"
                                 name="asset_serial_no[]"
                                 required
+                            >
+
+                        </td>
+
+                        <td>
+
+                            <input
+                                type="text"
+                                class="form-control"
+                                name="census_no[]"
                             >
 
                         </td>

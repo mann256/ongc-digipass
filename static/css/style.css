@@ -477,3 +477,9 @@ body{
 
 }
 
+#itemTable td,
+#itemTable th{
+    white-space: nowrap;
+    vertical-align: middle;
+}
+
