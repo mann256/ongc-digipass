@@ -46,6 +46,9 @@ def inject_user():
 # Create tables
 with app.app_context():
     db.create_all()
+    with app.app_context():
+        print("Connected successfully!")
+        print(User.query.count())
     print("Tables created")
 
 
