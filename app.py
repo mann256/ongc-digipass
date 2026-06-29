@@ -46,25 +46,7 @@ def inject_user():
 # Create tables
 with app.app_context():
     db.create_all()
-    with app.app_context():
-
-        db.create_all()
-
-        if User.query.count() == 0:
-
-            admin = User(
-                cpf="12345",
-                name="Administrator",
-                password="12345",
-                role="ADMIN"
-            )
-
-            db.session.add(admin)
-            db.session.commit()
-
-            print("Admin user created.")
-
-        print("Users:", User.query.count())
+    
     print("Tables created")
 
 
