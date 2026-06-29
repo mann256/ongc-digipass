@@ -2,6 +2,7 @@ import os
 import qrcode
 
 from datetime import datetime
+from flask import request
 
 
 from reportlab.lib import colors
