@@ -43,10 +43,6 @@ class GatePass(db.Model):
         db.String(100)
     )
 
-    address_to = db.Column(
-        db.String(200)
-    )
-
     receiver_cpf = db.Column(
         db.String(20)
     )
@@ -169,3 +165,5 @@ class GatePass(db.Model):
     second_checkin_remarks = db.Column(
         db.String(250)
     )
+
+    

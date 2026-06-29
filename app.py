@@ -270,10 +270,6 @@ def create_gatepass():
             "eway_bill_no"
         )
 
-        address_to = request.form.get(
-            "address_to"
-        )
-
         receiver_cpf = request.form.get(
             "receiver_cpf"
         )
@@ -317,8 +313,6 @@ def create_gatepass():
 
             eway_bill_no=eway_bill_no,
 
-            address_to=address_to,
-
             receiver_cpf=receiver_cpf,
 
             receiver_name=receiver_name,
@@ -357,6 +351,10 @@ def create_gatepass():
             "asset_serial_no[]"
         )
 
+        census_no = request.form.getlist(
+            "census_no[]"
+        )
+
         qtys = request.form.getlist(
             "qty[]"
         )
@@ -378,6 +376,8 @@ def create_gatepass():
                 material_description=materials[i],
 
                 asset_serial_no=assets[i],
+
+                census_no=census_no[i],
 
                 qty=qtys[i],
 
@@ -495,10 +495,6 @@ def edit_gatepass(gatepass_id):
             "eway_bill_no"
         )
 
-        gate_pass.address_to = request.form.get(
-            "address_to"
-        )
-
         gate_pass.receiver_cpf = request.form.get(
             "receiver_cpf"
         )
@@ -533,6 +529,10 @@ def edit_gatepass(gatepass_id):
             "asset_serial_no[]"
         )
 
+        census_no = request.form.getlist(
+            "census_no[]"
+        )
+
         qtys = request.form.getlist(
             "qty[]"
         )
@@ -552,6 +552,8 @@ def edit_gatepass(gatepass_id):
                 material_description=materials[i],
 
                 asset_serial_no=assets[i],
+
+                census_no=census_no[i],
 
                 qty=qtys[i],
 

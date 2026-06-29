@@ -27,6 +27,10 @@ class GatePassItem(db.Model):
         db.String(200)
     )
 
+    census_no = db.Column(
+        db.String(100)
+    )
+
     qty = db.Column(
         db.Integer
     )
