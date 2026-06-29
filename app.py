@@ -1110,13 +1110,44 @@ def security_scan():
             gate_pass.security_remarks = remarks
 
         print("=" * 60)
-        print("Status:", gate_pass.status)
-        print("Checkout Guard:", gate_pass.checkout_guard_name)
-        print("Checkout Time:", gate_pass.checkout_time)
-        print("Checkout Remarks:", gate_pass.checkout_remarks)
-        print("Checkin Guard:", gate_pass.checkin_guard_name)
-        print("Checkin Time:", gate_pass.checkin_time)
-        print("Checkin Remarks:", gate_pass.checkin_remarks)
+
+        if gate_pass.returnable == "NO":
+
+            print("NON-RETURNABLE")
+
+            print("Status:", gate_pass.status)
+
+            print("Checkout Guard:", gate_pass.checkout_guard_name)
+            print("Checkout Time:", gate_pass.checkout_time)
+            print("Checkout Remarks:", gate_pass.checkout_remarks)
+
+            print("Checkin Guard:", gate_pass.checkin_guard_name)
+            print("Checkin Time:", gate_pass.checkin_time)
+            print("Checkin Remarks:", gate_pass.checkin_remarks)
+
+        else:
+
+            print("RETURNABLE")
+
+            print("Status:", gate_pass.status)
+            print("Trip:", gate_pass.trip_number)
+
+            print("First Checkout Guard:", gate_pass.first_checkout_guard_name)
+            print("First Checkout Time:", gate_pass.first_checkout_time)
+            print("First Checkout Remarks:", gate_pass.first_checkout_remarks)
+
+            print("First Checkin Guard:", gate_pass.first_checkin_guard_name)
+            print("First Checkin Time:", gate_pass.first_checkin_time)
+            print("First Checkin Remarks:", gate_pass.first_checkin_remarks)
+
+            print("Second Checkout Guard:", gate_pass.second_checkout_guard_name)
+            print("Second Checkout Time:", gate_pass.second_checkout_time)
+            print("Second Checkout Remarks:", gate_pass.second_checkout_remarks)
+
+            print("Second Checkin Guard:", gate_pass.second_checkin_guard_name)
+            print("Second Checkin Time:", gate_pass.second_checkin_time)
+            print("Second Checkin Remarks:", gate_pass.second_checkin_remarks)
+
         print("=" * 60)
 
         db.session.commit()

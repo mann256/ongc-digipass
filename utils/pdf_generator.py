@@ -848,178 +848,321 @@ def generate_gatepass_pdf(
     # ------------------------------------------------------
     # SECURITY OUT
     # ------------------------------------------------------
+    if gate_pass.returnable == "NO":
 
-    story.append(
+        story.append(
 
-        Paragraph(
+            Paragraph(
 
-            "SECURITY OUT",
+                "SECURITY OUT",
 
-            heading_style
+                heading_style
+
+            )
 
         )
 
-    )
-
-    security_out = [
-
-        [
-            Paragraph(
-                gate_pass.checkout_guard_name or "-",
-                normal_style
-            )
-        ],
-
-        [
-            Paragraph(
-                gate_pass.checkout_time.strftime("%d-%b-%Y %I:%M %p")
-                if gate_pass.checkout_time else "-",
-                normal_style
-            )
-        ],
-
-        [
-            Paragraph(
-                gate_pass.checkout_remarks or "-",
-                normal_style
-            )
-        ]
-
-    ]
-
-    security_out_table = Table(
-
-        security_out,
-
-        colWidths=[150,360]
-
-    )
-
-    security_out_table.setStyle(
-
-        TableStyle(
+        security_out = [
 
             [
+                Paragraph(
+                    gate_pass.checkout_guard_name or "-",
+                    normal_style
+                )
+            ],
+
+            [
+                Paragraph(
+                    gate_pass.checkout_time.strftime("%d-%b-%Y %I:%M %p")
+                    if gate_pass.checkout_time else "-",
+                    normal_style
+                )
+            ],
+
+            [
+                Paragraph(
+                    gate_pass.checkout_remarks or "-",
+                    normal_style
+                )
+            ]
+
+        ]
+
+        security_out_table = Table(
+
+            security_out,
+
+            colWidths=[150,360]
+
+        )
+
+        security_out_table.setStyle(
+
+            TableStyle(
+
+                [
+
+                    ("BOX",(0,0),(-1,-1),1,colors.darkblue),
+
+                    ("GRID",(0,0),(-1,-1),0.5,colors.grey),
+
+                    ("BACKGROUND",(0,0),(0,-1),colors.HexColor("#EAF2F8")),
+
+                    ("FONTNAME",(0,0),(0,-1),"Helvetica-Bold"),
+
+                    ("TOPPADDING",(0,0),(-1,-1),10),
+
+                    ("BOTTOMPADDING",(0,0),(-1,-1),10)
+
+                ]
+
+            )
+
+        )
+
+        story.append(security_out_table)
+
+        story.append(
+
+            Spacer(
+
+                1,
+
+                15
+
+            )
+
+        )
+
+        # ------------------------------------------------------
+        # SECURITY IN
+        # ------------------------------------------------------
+
+        story.append(
+
+            Paragraph(
+
+                "SECURITY IN",
+
+                heading_style
+
+            )
+
+        )
+
+        security_in = [
+
+            [
+                Paragraph(
+                    gate_pass.checkin_guard_name or "-",
+                    normal_style
+                )
+            ],
+
+            [
+                Paragraph(
+                    gate_pass.checkin_time.strftime("%d-%b-%Y %I:%M %p")
+                    if gate_pass.checkin_time else "-",
+                    normal_style
+                )
+            ],
+
+            [
+                Paragraph(
+                    gate_pass.checkin_remarks or "-",
+                    normal_style
+                )
+            ]
+
+        ]
+
+        security_in_table = Table(
+
+            security_in,
+
+            colWidths=[150,360]
+
+        )
+
+        security_in_table.setStyle(
+
+            TableStyle(
+
+                [
+
+                    ("BOX",(0,0),(-1,-1),1,colors.darkblue),
+
+                    ("GRID",(0,0),(-1,-1),0.5,colors.grey),
+
+                    ("BACKGROUND",(0,0),(0,-1),colors.HexColor("#EAF2F8")),
+
+                    ("FONTNAME",(0,0),(0,-1),"Helvetica-Bold"),
+
+                    ("TOPPADDING",(0,0),(-1,-1),10),
+
+                    ("BOTTOMPADDING",(0,0),(-1,-1),10)
+
+                ]
+
+            )
+
+        )
+
+        story.append(security_in_table)
+
+        story.append(
+
+            Spacer(
+
+                1,
+
+                20
+
+            )
+
+        )
+
+    else:
+        # ------------------------------------------------------
+        # FIRST MOVEMENT
+        # ------------------------------------------------------
+
+        story.append(
+            Paragraph(
+                "FIRST MOVEMENT",
+                heading_style
+            )
+        )
+
+        first_movement = [
+
+            ["Check Out Guard",
+            gate_pass.first_checkout_guard_name or "-"],
+
+            ["Check Out Time",
+            gate_pass.first_checkout_time.strftime("%d-%b-%Y %I:%M %p")
+            if gate_pass.first_checkout_time else "-"],
+
+            ["Check Out Remarks",
+            gate_pass.first_checkout_remarks or "-"],
+
+            ["Check In Guard",
+            gate_pass.first_checkin_guard_name or "-"],
+
+            ["Check In Time",
+            gate_pass.first_checkin_time.strftime("%d-%b-%Y %I:%M %p")
+            if gate_pass.first_checkin_time else "-"],
+
+            ["Check In Remarks",
+            gate_pass.first_checkin_remarks or "-"]
+
+        ]
+
+        first_table = Table(
+            first_movement,
+            colWidths=[170,340]
+        )
+
+        first_table.setStyle(
+
+            TableStyle([
 
                 ("BOX",(0,0),(-1,-1),1,colors.darkblue),
-
                 ("GRID",(0,0),(-1,-1),0.5,colors.grey),
 
-                ("BACKGROUND",(0,0),(0,-1),colors.HexColor("#EAF2F8")),
+                ("BACKGROUND",(0,0),(0,-1),
+                colors.HexColor("#EAF2F8")),
 
-                ("FONTNAME",(0,0),(0,-1),"Helvetica-Bold"),
+                ("FONTNAME",(0,0),(0,-1),
+                "Helvetica-Bold"),
 
                 ("TOPPADDING",(0,0),(-1,-1),10),
 
                 ("BOTTOMPADDING",(0,0),(-1,-1),10)
 
-            ]
+            ])
 
         )
 
-    )
+        story.append(first_table)
 
-    story.append(security_out_table)
-
-    story.append(
-
-        Spacer(
-
-            1,
-
-            15
-
+        story.append(
+            Spacer(
+                1,
+                20
+            )
         )
 
-    )
+        # ------------------------------------------------------
+        # SECOND MOVEMENT
+        # ------------------------------------------------------
 
-    # ------------------------------------------------------
-    # SECURITY IN
-    # ------------------------------------------------------
-
-    story.append(
-
-        Paragraph(
-
-            "SECURITY IN",
-
-            heading_style
-
+        story.append(
+            Paragraph(
+                "SECOND MOVEMENT",
+                heading_style
+            )
         )
 
-    )
+        second_movement = [
 
-    security_in = [
+            ["Check Out Guard",
+            gate_pass.second_checkout_guard_name or "-"],
 
-        [
-            Paragraph(
-                gate_pass.checkin_guard_name or "-",
-                normal_style
-            )
-        ],
+            ["Check Out Time",
+            gate_pass.second_checkout_time.strftime("%d-%b-%Y %I:%M %p")
+            if gate_pass.second_checkout_time else "-"],
 
-        [
-            Paragraph(
-                gate_pass.checkin_time.strftime("%d-%b-%Y %I:%M %p")
-                if gate_pass.checkin_time else "-",
-                normal_style
-            )
-        ],
+            ["Check Out Remarks",
+            gate_pass.second_checkout_remarks or "-"],
 
-        [
-            Paragraph(
-                gate_pass.checkin_remarks or "-",
-                normal_style
-            )
+            ["Check In Guard",
+            gate_pass.second_checkin_guard_name or "-"],
+
+            ["Check In Time",
+            gate_pass.second_checkin_time.strftime("%d-%b-%Y %I:%M %p")
+            if gate_pass.second_checkin_time else "-"],
+
+            ["Check In Remarks",
+            gate_pass.second_checkin_remarks or "-"]
+
         ]
 
-    ]
+        second_table = Table(
+            second_movement,
+            colWidths=[170,340]
+        )
 
-    security_in_table = Table(
+        second_table.setStyle(
 
-        security_in,
-
-        colWidths=[150,360]
-
-    )
-
-    security_in_table.setStyle(
-
-        TableStyle(
-
-            [
+            TableStyle([
 
                 ("BOX",(0,0),(-1,-1),1,colors.darkblue),
 
                 ("GRID",(0,0),(-1,-1),0.5,colors.grey),
 
-                ("BACKGROUND",(0,0),(0,-1),colors.HexColor("#EAF2F8")),
+                ("BACKGROUND",(0,0),(0,-1),
+                colors.HexColor("#EAF2F8")),
 
-                ("FONTNAME",(0,0),(0,-1),"Helvetica-Bold"),
+                ("FONTNAME",(0,0),(0,-1),
+                "Helvetica-Bold"),
 
                 ("TOPPADDING",(0,0),(-1,-1),10),
 
                 ("BOTTOMPADDING",(0,0),(-1,-1),10)
 
-            ]
+            ])
 
         )
 
-    )
+        story.append(second_table)
 
-    story.append(security_in_table)
-
-    story.append(
-
-        Spacer(
-
-            1,
-
-            20
-
+        story.append(
+            Spacer(
+                1,
+                20
+            )
         )
-
-    )
 
     # ------------------------------------------------------
     # FOOTER
