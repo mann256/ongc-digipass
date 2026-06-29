@@ -62,21 +62,24 @@ passes and maintains a complete audit trail of security movements.
 -   Search & Filter
 -   Audit Trail
 
-------------------------------------------------------------------------
+---
 
-# Technology Stack
+## Technology Stack
 
-  Layer       Technology
-  ----------- ------------------------------------
-  Backend     Python
-  Framework   Flask
-  Database    PostgreSQL / SQLAlchemy
-  Frontend    HTML, CSS, Bootstrap 5, JavaScript
-  PDF         ReportLab
-  QR Code     qrcode
-  Excel       OpenPyXL
+| Category                 | Technology                          |
+| ------------------------ | ----------------------------------- |
+| Backend                  | Python                              |
+| Framework                | Flask                               |
+| Database                 | PostgreSQL / SQLAlchemy             |
+| Frontend                 | HTML, CSS, Bootstrap 5, JavaScript  |
+| PDF Generation           | ReportLab                           |
+| QR Code                  | qrcode                              |
+| Excel                    | OpenPyXL                            |
+| Version Control          | Git                                 |
+| Development Environment  | VS Code                             |
+| Configuration Management | .env                                |
 
-------------------------------------------------------------------------
+---
 
 # User Roles
 
