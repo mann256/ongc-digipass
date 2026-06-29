@@ -42,6 +42,8 @@ def generate_gatepass_excel():
 
         "Receiver Name",
 
+        "Returnable",
+
         "Material Details"
 
     ]
@@ -99,6 +101,8 @@ def generate_gatepass_excel():
 
                 f"• {item.material_description}"
 
+                f" | Asset/Serial No : {item.asset_serial_no or '-'}"
+
                 f"  | Qty : {item.qty}\n"
 
             )
@@ -113,6 +117,8 @@ def generate_gatepass_excel():
 
                 gp.receiver_name,
 
+                gp.returnable,
+
                 material_details.strip()
 
             ]
@@ -123,7 +129,8 @@ def generate_gatepass_excel():
         sheet.column_dimensions["A"].width = 25
         sheet.column_dimensions["B"].width = 25
         sheet.column_dimensions["C"].width = 25
-        sheet.column_dimensions["D"].width = 60
+        sheet.column_dimensions["D"].width = 15
+        sheet.column_dimensions["E"].width = 80
 
         for row in range(2, sheet.max_row + 1):
 
