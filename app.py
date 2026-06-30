@@ -1,4 +1,5 @@
 from flask import Flask
+from flask import flash
 from flask import render_template
 from flask import request
 from flask import redirect
@@ -6,6 +7,7 @@ from flask import url_for
 from flask import send_file
 from flask import session
 from datetime import datetime
+import re
 
 from config import Config
 from database.db import db
@@ -77,6 +79,12 @@ def login():
 
             session["role"] = user.role
 
+            if not user.password_changed:
+
+                return redirect(
+                    url_for("change_password")
+                )
+
             return redirect(
                 url_for("home")
             )
@@ -85,6 +93,131 @@ def login():
 
     return render_template(
         "login.html"
+    )
+
+
+@app.route(
+    "/change-password",
+    methods=["GET", "POST"]
+)
+def change_password():
+
+    if "user_id" not in session:
+
+        return redirect(url_for("login"))
+
+    user = db.session.get(
+        User,
+        session["user_id"]
+    )
+
+    if not user:
+
+        session.clear()
+
+        return redirect(
+            url_for("login")
+        )
+
+    if user.password_changed:
+
+        return redirect(
+            url_for("home")
+        )
+
+    if request.method == "POST":
+
+        current_password = request.form.get(
+            "current_password"
+        )
+
+        new_password = request.form.get(
+            "new_password"
+        )
+
+        confirm_password = request.form.get(
+            "confirm_password"
+        )
+
+        if current_password != user.password:
+
+            flash(
+                "Current password is incorrect.",
+                "danger"
+            )
+
+            return redirect(
+                url_for("change_password")
+            )
+
+        if new_password != confirm_password:
+
+            flash(
+                "Passwords do not match.",
+                "danger"
+            )
+
+            return redirect(
+                url_for("change_password")
+            )
+
+        if new_password == current_password:
+
+            flash(
+                "New password must be different from the current password.",
+                "danger"
+            )
+
+            return redirect(
+                url_for("change_password")
+            )
+        
+        if len(new_password) < 8:
+
+            flash(
+                "Password must contain at least 8 characters.",
+                "danger"
+            )
+
+            return redirect(
+                url_for("change_password")
+            )
+
+        if (
+            not re.search(r"[A-Z]", new_password)
+            or not re.search(r"[a-z]", new_password)
+            or not re.search(r"\d", new_password)
+            or not re.search(r"[!@#$%^&*(),.?\":{}|<>]", new_password)
+        ):
+
+            flash(
+                "Password must contain uppercase, lowercase, number and special character.",
+                "danger"
+            )
+
+            return redirect(
+                url_for("change_password")
+            )
+
+        user.password = new_password
+
+        user.password_changed = True
+
+        user.last_password_change = datetime.now()
+
+        db.session.commit()
+
+        flash(
+            "Password changed successfully.",
+            "success"
+        )
+
+        return redirect(
+            url_for("home")
+        )
+
+    return render_template(
+        "change_password.html"
     )
 
 

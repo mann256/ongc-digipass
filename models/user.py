@@ -29,3 +29,13 @@ class User(db.Model):
         db.String(50),
         nullable=False
     )
+
+    password_changed = db.Column(
+        db.Boolean,
+        default=False,
+        nullable=False
+    )
+
+    last_password_change = db.Column(
+        db.DateTime
+    )
