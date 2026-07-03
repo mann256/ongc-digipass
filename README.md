@@ -1,83 +1,126 @@
-# ONGC DigiPass
+# ONGC DigiPass Portal
 
-## Project Overview
-
-**ONGC DigiPass** is a web-based Gate Pass Management System developed
-for **ONGC Ltd. -- Security Services**. The application digitizes the
-complete material gate pass lifecycle by replacing manual paper-based
-passes with a secure workflow featuring approval, QR-code verification,
-PDF generation, and reporting.
-
-The system supports both **Non-Returnable** and **Returnable** gate
-passes and maintains a complete audit trail of security movements.
-
-------------------------------------------------------------------------
-
-# Organization Details
-
-  Field              Details
-  ------------------ ---------------------------------------------
-  Project Name       ONGC DigiPass
-  Organization       Oil and Natural Gas Corporation Ltd. (ONGC)
-  Department         Security Services
-  Application Type   Web Application
-  Architecture       Full Stack Web Application
-
-## Mentors
-
--   Anip C. Halpati
--   Arun Kumar Gupta
--   Virendra Singh
--   Suraj Singh
--   Saurabh Gupta
-
-------------------------------------------------------------------------
-
-# Objectives
-
--   Digitize the gate pass process.
--   Eliminate manual paperwork.
--   Generate unique QR-based gate passes.
--   Maintain complete movement history.
--   Support returnable and non-returnable materials.
--   Improve security verification.
--   Generate downloadable PDF gate passes.
--   Export gate pass records to Excel.
-
-------------------------------------------------------------------------
-
-# Major Features
-
--   Secure Login
--   Role-based access
--   Gate Pass Creation
--   Gate Pass Editing
--   Gate Pass Approval
--   QR Code Generation
--   Security Verification
--   Returnable Gate Pass Workflow
--   Dynamic Material Entry
--   PDF Generation
--   Excel Export
--   Search & Filter
--   Audit Trail
+![Python](https://img.shields.io/badge/Python-3.13-blue)
+![Flask](https://img.shields.io/badge/Flask-3.1-black)
+![MySQL](https://img.shields.io/badge/MySQL-Database-orange)
+![SQLAlchemy](https://img.shields.io/badge/SQLAlchemy-ORM-red)
+![Bootstrap](https://img.shields.io/badge/Bootstrap-5-purple)
+![License](https://img.shields.io/badge/Status-Completed-success)
 
 ---
 
-## Technology Stack
+## ONGC DigiPass Portal
 
-| Category                 | Technology                          |
-| ------------------------ | ----------------------------------- |
-| Backend                  | Python                              |
-| Framework                | Flask                               |
-| Database                 | PostgreSQL / SQLAlchemy             |
-| Frontend                 | HTML, CSS, Bootstrap 5, JavaScript  |
-| PDF Generation           | ReportLab                           |
-| QR Code                  | qrcode                              |
-| Excel                    | OpenPyXL                            |
-| Version Control          | Git                                 |
-| Development Environment  | VS Code                             |
-| Configuration Management | .env                                |
+**ONGC DigiPass Portal** is a full-stack web application developed during my internship at **Oil and Natural Gas Corporation (ONGC)** for digitizing the internal material movement process.
+
+The application replaces the traditional paper-based gate pass system with a secure digital workflow featuring role-based authentication, approval management, QR-code verification, PDF generation, Excel export, and complete movement tracking.
+
+---
+
+# Live Demo
+
+https://ongc-digipass-1.onrender.com
+
+---
+
+# Features
+
+- Secure Login System
+- Role-Based Authentication
+- Dashboard Analytics
+- Gate Pass Creation
+- Dynamic Material Entry
+- Gate Pass Approval
+- QR Code Generation
+- Security Verification
+- Returnable & Non-Returnable Gate Pass Workflow
+- PDF Gate Pass Generation
+- Excel Report Export
+- Search & Filter Gate Passes
+- Complete Audit Trail
+
+---
+
+# Technology Stack
+
+| Category | Technology |
+|-----------|------------|
+| Backend | Python |
+| Framework | Flask |
+| ORM | SQLAlchemy |
+| Database | MySQL |
+| Frontend | HTML, CSS, Bootstrap 5, Jinja2 |
+| Authentication | Flask-Login, Session Management |
+| QR Code | qrcode |
+| PDF Generation | ReportLab |
+| Excel Export | OpenPyXL |
+| Version Control | Git, GitHub |
+
+---
+
+# Application Screenshots
+
+## Login Page
+
+Displays the secure authentication page for ONGC employees.
+
+![Login](screenshots/login.png)
+
+---
+
+## Dashboard
+
+Shows overall gate pass statistics along with quick actions for administrators.
+
+![Dashboard](screenshots/dashboard.png)
+
+---
+
+## Create Gate Pass
+
+The system allows users to create digital material gate passes.
+
+![Create Gate Pass](screenshots/create_gatepass_1.png)
+
+---
+
+## Material Details
+
+Supports multiple material entries with quantity, asset number, remarks and dynamic row addition.
+
+![Material Details](screenshots/create_gatepass_2.png)
+
+---
+
+## Site Details
+
+Displays location-wise statistics including total, pending, approved and rejected gate passes.
+
+![Site Details](screenshots/site_details.png)
+
+---
+
+## Gate Pass List
+
+Users can search, filter, print, approve, reject and export gate passes.
+
+![Gate Pass List](screenshots/gatepass_list.png)
+
+---
+
+## Security Verification
+
+Security personnel verify QR codes and update movement status during Check-In and Check-Out.
+
+![Security Verification](screenshots/security_verification.png)
+
+---
+
+## Generated PDF
+
+Professional PDF Gate Pass generated automatically after approval.
+
+![Generated PDF](screenshots/generated_pdf.png)
 
 ---
 
@@ -85,29 +128,36 @@ passes and maintains a complete audit trail of security movements.
 
 ## User
 
--   Create Gate Pass
--   Edit Gate Pass before approval
--   Print Gate Pass
--   View Gate Pass List
+- Login
+- Create Gate Pass
+- Edit Gate Pass
+- View Gate Pass
+- Print Gate Pass
+
+---
 
 ## Approving Authority
 
--   Approve Gate Pass
--   Reject Gate Pass
+- Approve Gate Pass
+- Reject Gate Pass
+- View Gate Pass Details
 
-## Gate Security
+---
 
--   Verify QR Code
--   Perform Check-Out
--   Perform Check-In
--   Enter Guard Details
--   Enter Remarks
+## Security
 
-------------------------------------------------------------------------
+- Scan QR Code
+- Verify Credentials
+- Check-Out Material
+- Check-In Material
+- Add Guard Details
+- Add Remarks
 
-# Gate Pass Workflow
+---
 
-``` text
+# Workflow
+
+```text
 Login
    │
    ▼
@@ -132,209 +182,220 @@ Security Verification
 Completed
 ```
 
-------------------------------------------------------------------------
+---
 
 # Non-Returnable Workflow
 
-``` text
+```text
+PENDING
+    │
+    ▼
 APPROVED
     │
     ▼
-Security Check-Out
+CHECK-OUT
     │
     ▼
-IN_TRANSIT
+IN TRANSIT
     │
     ▼
-Security Check-In
+CHECK-IN
     │
     ▼
 COMPLETED
 ```
 
-Information captured: - Guard Name - Date & Time - Remarks
-
-------------------------------------------------------------------------
+---
 
 # Returnable Workflow
 
-``` text
-APPROVED
-    │
-    ▼
-First Check-Out
-    │
-    ▼
-IN_TRANSIT
-    │
-    ▼
-First Check-In
-    │
-    ▼
-Second Check-Out
-    │
-    ▼
-IN_TRANSIT
-    │
-    ▼
-Second Check-In
-    │
-    ▼
-COMPLETED
-```
-
-For each movement the system records: - Guard Name - Time Stamp -
-Remarks
-
-------------------------------------------------------------------------
-
-# QR Code Verification
-
-Each approved gate pass contains a QR code.
-
-When scanned:
-
--   Opens the Security Verification page.
--   Displays complete gate pass details.
--   Shows material information.
--   Allows only authorized security personnel to authenticate.
--   Updates gate pass status.
-
-------------------------------------------------------------------------
-
-# Gate Pass Status Lifecycle
-
-## Non-Returnable
-
-``` text
+```text
 PENDING
- ↓
+      │
+      ▼
 APPROVED
- ↓
-IN_TRANSIT
- ↓
+      │
+      ▼
+FIRST CHECK-OUT
+      │
+      ▼
+FIRST CHECK-IN
+      │
+      ▼
+SECOND CHECK-OUT
+      │
+      ▼
+SECOND CHECK-IN
+      │
+      ▼
 COMPLETED
 ```
 
-## Returnable
+---
 
-``` text
-PENDING
- ↓
-APPROVED
- ↓
-IN_TRANSIT
- ↓
-COMPLETED
-```
-
-Movement stages: 1. First Check-Out 2. First Check-In 3. Second
-Check-Out 4. Second Check-In
-
-------------------------------------------------------------------------
-
-# Material Details
-
-Each gate pass supports multiple material entries.
-
-Each material stores: - Item Number - Material Description - Asset /
-Serial Number - Census Number (Optional) - Quantity - Remarks
-
-------------------------------------------------------------------------
-
-# PDF Generation
-
-The application generates a professional PDF containing:
-
--   ONGC Branding
--   QR Code
--   Gate Pass Details
--   Material Details
--   Approval Details
--   Security Details
--   Footer with generation timestamp
-
-For returnable gate passes:
-
--   First Movement
--   Second Movement
-
-are displayed separately.
-
-------------------------------------------------------------------------
-
-# Excel Report
-
-The system exports the last 30 days of gate passes.
-
-Columns include:
-
--   Gate Pass Number
--   Created By
--   Receiver Name
--   Returnable
--   Material Details
--   Asset / Serial Number
--   Quantity
-
-------------------------------------------------------------------------
-
-# Database Overview
+# Database Design
 
 ## GatePass
 
-Stores: - Gate Pass Number - Status - Vehicle Details - Receiver
-Details - Returnable Flag - Approval Details - Security Details -
-Movement Information
+Stores
+
+- Gate Pass Number
+- Status
+- Vehicle Details
+- Receiver Details
+- Approval Details
+- Returnable Status
+- Security Information
+- Movement History
+
+---
 
 ## GatePassItem
 
-Stores: - Item Number - Material Description - Asset / Serial Number -
-Census Number - Quantity - Remarks
+Stores
 
-------------------------------------------------------------------------
+- Item Number
+- Material Description
+- Asset / Serial Number
+- Census Number
+- Quantity
+- Remarks
 
-# Security Features
+---
 
--   QR-based verification
--   Role-based authentication
--   Security credential validation
--   Timestamp logging
--   Guard identification
--   Audit history
+# Validation
 
-------------------------------------------------------------------------
+- Mandatory Gate Pass Details
+- At least one material item required
+- Unique Gate Pass Number
+- Role-based Authorization
+- Security Authentication
+- Completed Gate Passes cannot be modified
 
-# Validation Rules
+---
 
--   Mandatory gate pass information.
--   At least one material item.
--   Positive quantity.
--   Unique gate pass number.
--   Security authentication required.
--   Completed gate passes cannot be modified.
+# Major Functionalities
 
-------------------------------------------------------------------------
+✔ User Authentication
+
+✔ Session Management
+
+✔ QR Code Generation
+
+✔ QR Verification
+
+✔ Dynamic Material Management
+
+✔ PDF Generation
+
+✔ Excel Export
+
+✔ Dashboard Analytics
+
+✔ Search & Filter
+
+✔ Audit Trail
+
+✔ Role-Based Access Control
+
+✔ Responsive User Interface
+
+---
+
+# Repository Structure
+
+```text
+ONGC-Digital-Pass-System
+│
+├── app.py
+├── config/
+├── models/
+├── routes/
+├── templates/
+├── static/
+│   ├── css/
+│   ├── js/
+│   ├── images/
+│
+├── reports/
+├── screenshots/
+│   ├── login.png
+│   ├── dashboard.png
+│   ├── create_gatepass_1.png
+│   ├── create_gatepass_2.png
+│   ├── site_details.png
+│   ├── gatepass_list.png
+│   ├── security_verification.png
+│   └── generated_pdf.png
+│
+├── requirements.txt
+└── README.md
+```
+
+---
+
+# Installation
+
+```bash
+git clone https://github.com/mann256/ONGC-Digital-Pass-System.git
+
+cd ONGC-Digital-Pass-System
+
+pip install -r requirements.txt
+
+python app.py
+```
+
+---
 
 # Future Enhancements
 
--   Notification center
--   Dashboard analytics
--   Email alerts
--   SMS notifications
--   Digital signatures
--   Barcode support
--   Mobile application
--   Approval history
--   Advanced reporting
+- Email Notifications
+- SMS Alerts
+- Mobile Application
+- Barcode Support
+- Digital Signature
+- Dashboard Charts
+- Multi-Department Support
+- Approval History
+- Notification Center
 
-------------------------------------------------------------------------
+---
 
-# Conclusion
+# Skills Demonstrated
 
-ONGC DigiPass modernizes the gate pass process by integrating secure
-authentication, QR-code verification, digital approvals, PDF generation,
-Excel reporting, and comprehensive movement tracking into a single web
-application. The system improves operational efficiency, enhances
-security, and provides a scalable platform for managing material
-movement within ONGC Security Services.
+- Full Stack Web Development
+- Flask Development
+- MySQL Database Design
+- SQLAlchemy ORM
+- RESTful Routing
+- Authentication & Session Management
+- QR Code Integration
+- PDF Report Generation
+- Excel Report Export
+- Bootstrap UI Development
+- Software Testing
+- Role-Based Authorization
+- Enterprise Workflow Design
+
+---
+
+# Acknowledgements
+
+Developed during my internship at
+
+**Oil and Natural Gas Corporation (ONGC)**
+
+Ahmedabad Asset
+
+Security Services Department
+
+---
+
+# Author
+
+**Mann Bhatnagar**
+
+GitHub: https://github.com/mann256
+
+LinkedIn: https://linkedin.com/in/mann-bhatnagar-49ab22333
